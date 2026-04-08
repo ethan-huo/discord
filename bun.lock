@@ -66,7 +66,7 @@
 
     "@valibot/to-json-schema": ["@valibot/to-json-schema@1.6.0", "", { "peerDependencies": { "valibot": "^1.3.0" } }, "sha512-d6rYyK5KVa2XdqamWgZ4/Nr+cXhxjy7lmpe6Iajw15J/jmU+gyxl2IEd1Otg1d7Rl3gOQL5reulnSypzBtYy1A=="],
 
-    "argc": ["argc@github:ethan-huo/argc#0a43fc7", { "peerDependencies": { "@standard-schema/spec": "^1.0.0" } }, "ethan-huo-argc-0a43fc7", "sha512-HGEeOgEmiU33m+2AtwhON6Jtnw+SeLmelN9hTYIRzbe7vMqaS3sjPWKHXxz1b2hyS+mOq8WJhCCUCBmsKixp2g=="],
+    "argc": ["argc@github:ethan-huo/argc#bd54938", { "peerDependencies": { "@standard-schema/spec": "^1.0.0" } }, "ethan-huo-argc-bd54938", "sha512-V48mRktQthz7aU58Vb4vxbAtrCClnNY8TvCG5SaGL1rYWxv6kqZnYDBFoPBqHSxTPGw0ndA3AC4T/eU1Msqkrw=="],
 
     "bun-types": ["bun-types@1.3.11", "", { "dependencies": { "@types/node": "*" } }, "sha512-1KGPpoxQWl9f6wcZh57LvrPIInQMn2TQ7jsgxqpRzg+l0QPOFvJVH7HmvHo/AiPgwXy+/Thf6Ov3EdVn1vOabg=="],
 
