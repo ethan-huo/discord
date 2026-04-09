@@ -1,6 +1,6 @@
 {
 	"name": "discord",
-	"version": "0.7.0",
+	"version": "0.7.1",
 	"description": "Discord server management CLI built on Bun and argc.",
 	"bin": {
 		"discord": "src/main.ts"
