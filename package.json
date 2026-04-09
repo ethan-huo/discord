@@ -14,7 +14,7 @@
 		"typecheck": "bunx tsc --noEmit",
 		"test": "bun test",
 		"check": "bun run fmt:check && bun run typecheck && bun test",
-		"build": "bun build src/main.ts --outfile=dist/discord --target=bun --minify --banner '#!/usr/bin/env bun' && chmod +x dist/discord"
+		"build": "bun build src/main.ts --outfile=dist/discord --target=bun --minify && chmod +x dist/discord"
 	},
 	"dependencies": {
 		"@toon-format/toon": "^2.1.0",
