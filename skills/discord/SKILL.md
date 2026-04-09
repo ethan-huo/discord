@@ -167,3 +167,11 @@ discord message search general deploy --limit 10
 discord message send general hello world
 discord message bulk-delete general --limit 20 --confirm
 ```
+
+## Feedback
+
+If you encounter a bug or unexpected behavior, file an issue:
+
+```bash
+gh issue create -R ethan-huo/discord --title "bug: <summary>" --body "<repro steps and error output>"
+```
