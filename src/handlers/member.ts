@@ -136,9 +136,15 @@ export const memberHandlers: Pick<AppHandlers, 'member'> = {
 			)
 			const user = requireMemberUser(member)
 
-			await runtime.client.modifyMember(runtime.guildId!, user.id, {
-				nick: input.nickname,
-			})
+			const currentUser = await runtime.client.getCurrentUser()
+			// Discord rejects self-renames via /members/{user_id}; bots must use /members/@me/nick.
+			if (user.id === currentUser.id) {
+				await runtime.client.modifyOwnNickname(runtime.guildId!, input.nickname)
+			} else {
+				await runtime.client.modifyMember(runtime.guildId!, user.id, {
+					nick: input.nickname,
+				})
+			}
 			printStructured(
 				actionResult('set_member_nick', {
 					user: {

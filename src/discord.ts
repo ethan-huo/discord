@@ -101,6 +101,10 @@ export class DiscordClient {
 		return this.request<Guild[]>('GET', '/users/@me/guilds')
 	}
 
+	async getCurrentUser(): Promise<UserSummary> {
+		return this.request<UserSummary>('GET', '/users/@me')
+	}
+
 	async getGuild(guildId: string): Promise<GuildFull> {
 		return this.request<GuildFull>('GET', `/guilds/${guildId}?with_counts=true`)
 	}
@@ -305,6 +309,12 @@ export class DiscordClient {
 				reason,
 			},
 		)
+	}
+
+	async modifyOwnNickname(guildId: string, nick: string): Promise<void> {
+		await this.request<void>('PATCH', `/guilds/${guildId}/members/@me/nick`, {
+			body: { nick },
+		})
 	}
 
 	async getGuildInvites(guildId: string): Promise<Invite[]> {
