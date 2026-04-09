@@ -15,7 +15,7 @@ jobs:
       tag: ${{ steps.version.outputs.tag }}
       package_name: ${{ steps.version.outputs.package_name }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.2
         with:
           fetch-depth: 0
       - id: version
@@ -57,13 +57,13 @@ jobs:
       contents: write
     environment: npm
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.2
         with:
           fetch-depth: 0
-      - uses: oven-sh/setup-bun@v2
+      - uses: oven-sh/setup-bun@v2.2.0
         with:
           bun-version: latest
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6.3.0
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org
