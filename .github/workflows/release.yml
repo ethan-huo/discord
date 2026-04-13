@@ -13,7 +13,6 @@ jobs:
       should_release: ${{ steps.version.outputs.should_release }}
       version: ${{ steps.version.outputs.version }}
       tag: ${{ steps.version.outputs.tag }}
-      package_name: ${{ steps.version.outputs.package_name }}
     steps:
       - uses: actions/checkout@v6.0.2
         with:
@@ -24,7 +23,6 @@ jobs:
           set -euo pipefail
 
           current_version=$(jq -r '.version' package.json)
-          package_name=$(jq -r '.name' package.json)
           before_sha="${{ github.event.before }}"
           previous_version=""
 
@@ -46,16 +44,14 @@ jobs:
             echo "should_release=$should_release"
             echo "version=$current_version"
             echo "tag=v$current_version"
-            echo "package_name=$package_name"
           } >> "$GITHUB_OUTPUT"
 
-  publish:
+  release:
     needs: detect-version-bump
     if: needs.detect-version-bump.outputs.should_release == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    environment: npm
     steps:
       - uses: actions/checkout@v6.0.2
         with:
@@ -63,10 +59,6 @@ jobs:
       - uses: oven-sh/setup-bun@v2.2.0
         with:
           bun-version: latest
-      - uses: actions/setup-node@v6.3.0
-        with:
-          node-version: 22
-          registry-url: https://registry.npmjs.org
       - run: bun install --frozen-lockfile
       - run: bun run check
       - run: bun run build
@@ -94,22 +86,6 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git tag "$TAG" "$GITHUB_SHA"
           git push origin "refs/tags/$TAG"
-
-      - name: Publish package to npm when this version is not already published
-        env:
-          PACKAGE_NAME: ${{ needs.detect-version-bump.outputs.package_name }}
-          VERSION: ${{ needs.detect-version-bump.outputs.version }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          if npm view "${PACKAGE_NAME}@${VERSION}" version >/dev/null 2>&1; then
-            echo "${PACKAGE_NAME}@${VERSION} is already published. Skipping npm publish."
-            exit 0
-          fi
-
-          npm publish --access=public
       - name: Create or update GitHub Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

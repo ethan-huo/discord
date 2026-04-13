@@ -122,7 +122,3 @@ This fork corrects several stale assumptions from the previous codebase:
 - `CREATE_GUILD_EXPRESSIONS` / `create_expressions` is separate from the older emoji permission model.
 - Message search uses guild search instead of pretending that recent channel history is equivalent.
 - Pin listing uses the newer `/channels/{id}/messages/pins` API shape.
-
-## Publishing Note
-
-The local package name is `discord` because that is the current project name. If you ever publish it, use a scoped package instead of relying on an obviously crowded global name.
