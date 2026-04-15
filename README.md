@@ -14,10 +14,26 @@ This repository was rebuilt from an untrusted fork. The current version keeps th
 ## Install
 
 ```bash
-bun install
+curl -fsSL https://raw.githubusercontent.com/ethan-huo/discord/main/install.sh | bash
+```
+
+To install a specific version:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/ethan-huo/discord/main/install.sh | bash -s 0.7.2
+```
+
+Default install path is `~/.local/bin`. Override with `DISCORD_INSTALL_DIR`:
+
+```bash
+DISCORD_INSTALL_DIR=/usr/local/bin curl -fsSL https://raw.githubusercontent.com/ethan-huo/discord/main/install.sh | bash
 ```
 
 ## Develop
+
+```bash
+bun install
+```
 
 ```bash
 bun run fmt
