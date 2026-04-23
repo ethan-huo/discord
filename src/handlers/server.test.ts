@@ -7,6 +7,7 @@ import { saveFileConfig } from '../config.ts'
 import { serverHandlers } from './server.ts'
 
 let testDir = ''
+const TEST_CALL_ID = '01TESTCALLID00000000000000'
 
 beforeEach(async () => {
 	testDir = await mkdtemp(join(tmpdir(), 'discord-server-handler-'))
@@ -61,7 +62,9 @@ describe('server select', () => {
 					path: ['server', 'select'],
 					command: 'server select',
 					raw: [],
+					callId: TEST_CALL_ID,
 				},
+				emit: () => undefined,
 			})
 		} finally {
 			console.log = originalLog

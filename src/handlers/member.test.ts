@@ -4,6 +4,8 @@ import type { Member, UserSummary } from '../discord.ts'
 
 import { memberHandlers } from './member.ts'
 
+const TEST_CALL_ID = '01TESTCALLID00000000000000'
+
 function createMember(user: UserSummary): Member {
 	return {
 		user,
@@ -75,7 +77,9 @@ describe('member nick', () => {
 					path: ['member', 'nick'],
 					command: 'member nick',
 					raw: [],
+					callId: TEST_CALL_ID,
 				},
+				emit: () => undefined,
 			})
 		} finally {
 			console.log = originalLog
@@ -135,7 +139,9 @@ describe('member nick', () => {
 					path: ['member', 'nick'],
 					command: 'member nick',
 					raw: [],
+					callId: TEST_CALL_ID,
 				},
+				emit: () => undefined,
 			})
 		} finally {
 			console.log = originalLog
