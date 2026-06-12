@@ -106,7 +106,7 @@ describe('config resolution', () => {
 		await saveFileConfig({
 			token: 'file-token',
 			server: 'file-server',
-			format: 'toon',
+			format: 'yaml',
 		})
 		process.env.DISCORD_TOKEN = 'env-token'
 		process.env.DISCORD_SERVER = 'env-server'
@@ -117,7 +117,7 @@ describe('config resolution', () => {
 		expect(config.file).toEqual({
 			token: 'file-token',
 			server: 'file-server',
-			format: 'toon',
+			format: 'yaml',
 		})
 		expect(config.resolved).toEqual({
 			token: 'env-token',
@@ -127,16 +127,16 @@ describe('config resolution', () => {
 	})
 
 	test('explicit globals override file and env values', async () => {
-		await saveFileConfig({ server: 'file-server', format: 'toon' })
+		await saveFileConfig({ server: 'file-server', format: 'yaml' })
 		process.env.DISCORD_SERVER = 'env-server'
-		process.env.DISCORD_FORMAT = 'json'
+		process.env.DISCORD_FORMAT = 'yaml'
 
 		const config = await resolveConfigContext({
 			server: 'flag-server',
-			format: 'toon',
+			json: true, // --json forces JSON over the file/env 'yaml' default
 		})
 
 		expect(config.resolved.server).toBe('flag-server')
-		expect(config.resolved.format).toBe('toon')
+		expect(config.resolved.format).toBe('json')
 	})
 })

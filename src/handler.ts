@@ -8,7 +8,7 @@ type HandlerOptions = {
 }
 
 function resolveFormat(options: HandlerOptions): OutputFormat {
-	return options.context?.config.resolved.format ?? 'toon'
+	return options.context?.config.resolved.format ?? 'yaml'
 }
 
 export function handled<TOptions extends HandlerOptions>(

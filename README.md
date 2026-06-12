@@ -6,8 +6,8 @@ This repository was rebuilt from an untrusted fork. The current version keeps th
 
 ## Design Goals
 
-- Default to `toon` because the primary consumer is an agent.
-- Keep `json` only for machine piping such as `jq`.
+- Default to YAML: a readable summary the agent parses natively.
+- Keep `--json` only for machine piping such as `jq`.
 - Resolve global configuration once at the edge and expose the final result through context.
 - Prefer `--schema` discovery over duplicating argument detail across docs.
 
@@ -82,11 +82,11 @@ Multiple Bun CLI tools share a single runtime — each tool adds only ~100 KB.
 
 ## Output Modes
 
-Default output is `toon`.
+Default output is YAML. Add `--json` to pipe raw JSON:
 
 ```bash
 discord server list
-discord server list --format json | jq .
+discord server list --json | jq .
 ```
 
 ## Configuration
@@ -108,7 +108,7 @@ Every config key can be overridden by environment variables:
 ```bash
 DISCORD_TOKEN=...
 DISCORD_SERVER=...
-DISCORD_FORMAT=toon
+DISCORD_FORMAT=yaml
 DISCORD_CONFIG_DIR=/path/to/config
 ```
 

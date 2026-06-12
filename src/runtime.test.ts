@@ -39,7 +39,7 @@ describe('runtime context', () => {
 
 		expect(context.config.file).toBeNull()
 		expect(context.config.resolved).toEqual({
-			format: 'toon',
+			format: 'yaml',
 			server: undefined,
 			token: undefined,
 		})

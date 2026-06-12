@@ -236,7 +236,7 @@ const messageChildren = {
 
 export const globalsSchema = s(
 	v.object({
-		format: v.optional(v.picklist(['toon', 'json'])),
+		json: v.optional(v.boolean()), // raw JSON for jq pipes; default output is YAML
 		server: v.optional(v.string()),
 	}),
 )

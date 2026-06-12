@@ -1,16 +1,17 @@
-import { encode } from '@toon-format/toon'
+import { stringify } from 'yaml'
 
 import { toErrorPayload, type ErrorPayload } from './errors.ts'
 
-export type OutputFormat = 'toon' | 'json'
+// Default to YAML: a readable summary an agent parses natively. --json is the
+// raw-data escape hatch for jq pipes.
+export type OutputFormat = 'yaml' | 'json'
 
 export function renderOutput(data: unknown, format: OutputFormat): string {
 	if (format === 'json') {
 		return JSON.stringify(data, null, 2)
 	}
 
-	// TOON stays compact for agents while still preserving nested structure.
-	return encode(data).trimEnd()
+	return stringify(data).trimEnd()
 }
 
 export function printResult(data: unknown, format: OutputFormat): void {

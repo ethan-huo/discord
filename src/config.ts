@@ -14,11 +14,11 @@ const CONFIG_DIR_NAME = 'discord'
 const configSchema = v.object({
 	token: v.optional(v.string()),
 	server: v.optional(v.string()),
-	format: v.optional(v.picklist(['toon', 'json'])),
+	format: v.optional(v.picklist(['yaml', 'json'])),
 })
 
 export type AppGlobals = {
-	format?: OutputFormat
+	json?: boolean // --json maps to format: 'json'; default output is YAML
 	server?: string
 }
 
@@ -139,8 +139,14 @@ export async function resolveConfigContext(
 	const dir = getConfigDir()
 	const path = getConfigPath()
 	const file = await loadFromFile(path)
+	// --json is a boolean flag; map it onto the config-shaped `format` field so
+	// it merges over file/env like every other global.
+	const globalPatch = {
+		...(globals.server ? { server: globals.server } : {}),
+		...(globals.json ? { format: 'json' } : {}),
+	}
 	const config = validateConfig(mergeConfig(file, resolveFromEnv()), 'file/env')
-	const resolved = validateConfig(mergeConfig(config, globals), 'globals')
+	const resolved = validateConfig(mergeConfig(config, globalPatch), 'globals')
 
 	return {
 		dir,
@@ -149,7 +155,7 @@ export async function resolveConfigContext(
 		resolved: {
 			token: resolved.token,
 			server: resolved.server,
-			format: resolved.format ?? 'toon',
+			format: resolved.format ?? 'yaml',
 		},
 	}
 }
